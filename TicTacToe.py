@@ -32,8 +32,6 @@ class Matrix:
         retList = []
         tupleList = []
         
-
-
         # horizontal
         lowest = max(0, j-length+1)
         highest = min(col-length, j+length-1)
@@ -54,7 +52,7 @@ class Matrix:
             if len(tupleList) != 0:
                 retList.append(tupleList)
         
-        # diagonal topleft-bottomright
+        # diagonal kiriatas-kananbawah
         for offset in range(1-length, length):
             tupleList = []
             for m in range(length):
@@ -68,7 +66,7 @@ class Matrix:
             if len(tupleList) != 0:
                 retList.append(tupleList)
         
-        # diagonal topright-bottomleft
+        # diagonal kananatas-kiribawah
         for offset in range(1-length, length):
             tupleList = []
             for m in range(length):
@@ -82,7 +80,6 @@ class Matrix:
             if len(tupleList) != 0:
                 retList.append(tupleList)
 
-
         return retList
 
     def hashLine(line):
@@ -92,29 +89,11 @@ class Matrix:
                 str += f"{i[1]:02d}"
         return str    
 
-
     def calculate(self):
 
         X_points = 0
         O_points = 0
 
-        ## 8 line
-
-        # indexes = [
-        #     # horizontal
-        #     [(0,0), (0,1), (0,2)],
-        #     [(1,0), (1,1), (1,2)],
-        #     [(2,0), (2,1), (2,2)],
-
-        #     # vertical
-        #     [(0,0), (1,0), (2,0)],
-        #     [(0,1), (1,1), (2,1)],
-        #     [(0,2), (1,2), (2,2)],
-
-        #     # diagonal
-        #     [(0,0), (1,1), (2,2)],
-        #     [(2,0), (1,1), (0,2)]
-        # ]
         MAXPOINTS = 10**(self.wincount-1)
         MINPOINTS = -MAXPOINTS
         row = self.row
@@ -131,7 +110,6 @@ class Matrix:
                         if hashed_line not in accessedLine:
                             accessedLine.add(hashed_line)
                             indexes += [line]
-
 
         for line in indexes:
             XCount = 0
@@ -175,7 +153,6 @@ class TreeMat:
                             newTree.lastMove = (i, j)
                             self.children.append(newTree)
                     
-    
     def setCostAndExpand(self, currentDepth):
         MAXPOINTS = 10**(self.matrix.wincount-1)
         MINPOINTS = -MAXPOINTS
@@ -193,7 +170,6 @@ class TreeMat:
             self.cost = 0
             return
 
-        
         if (currentDepth < self.maxdepth):
         ## keep expanding
             self.generateMoves()
@@ -236,4 +212,3 @@ class TreeMat:
         else:
             self.cost = points
             return
-        
